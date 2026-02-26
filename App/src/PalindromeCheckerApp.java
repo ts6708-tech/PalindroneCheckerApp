@@ -6,83 +6,44 @@ import java.util.Deque;
 import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
-    static class Node {
-        char data;
-        Node next;
+       public static void main(String[] args){
+           public static void main(String[] args) {
 
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
+               System.out.println("UC10: Case-Insensitive & Space-Ignored Palindrome");
 
-    public static void main(String[] args){
-        System.out.println("UC8: Linked List Based Palindrome Checker");
+               Scanner scanner = new Scanner(System.in);
 
-        Scanner scanner = new Scanner(System.in);
+               System.out.print("Enter a string: ");
+               String input = scanner.nextLine();
 
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+               // Normalize string:
+               // Remove all non-alphanumeric characters and convert to lowercase
+               String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        if (input.length() == 0) {
-            System.out.println("Empty string is a Palindrome.");
-            return;
-        }
+               int start = 0;
+               int end = normalized.length() - 1;
+               boolean isPalindrome = true;
 
-        // Convert string to linked list
-        Node head = new Node(input.charAt(0));
-        Node current = head;
+               while (start < end) {
 
-        for (int i = 1; i < input.length(); i++) {
-            current.next = new Node(input.charAt(i));
-            current = current.next;
-        }
+                   if (normalized.charAt(start) != normalized.charAt(end)) {
+                       isPalindrome = false;
+                       break;
+                   }
 
-        // Find middle using Fast & Slow pointer
-        Node slow = head;
-        Node fast = head;
+                   start++;
+                   end--;
+               }
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
+               if (isPalindrome) {
+                   System.out.println(input + " is a Palindrome (ignoring case and spaces).");
+               } else {
+                   System.out.println(input + " is NOT a Palindrome.");
+               }
 
-        // Reverse second half
-        Node prev = null;
-        Node next = null;
-        Node secondHalf = slow;
-
-        while (secondHalf != null) {
-            next = secondHalf.next;
-            secondHalf.next = prev;
-            prev = secondHalf;
-            secondHalf = next;
-        }
-
-        // Compare first half and reversed second half
-        Node firstHalf = head;
-        Node reversedHalf = prev;
-
-        boolean isPalindrome = true;
-
-        while (reversedHalf != null) {
-            if (firstHalf.data != reversedHalf.data) {
-                isPalindrome = false;
-                break;
-            }
-            firstHalf = firstHalf.next;
-            reversedHalf = reversedHalf.next;
-        }
-
-        // Print result
-        if (isPalindrome) {
-            System.out.println(input + " is a Palindrome.");
-        } else {
-            System.out.println(input + " is NOT a Palindrome.");
-        }
-
-        System.out.println("Program ended.");
-        scanner.close();
+               System.out.println("Program ended.");
+               scanner.close();
+           }
 
     }
 }
