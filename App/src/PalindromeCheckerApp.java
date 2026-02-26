@@ -6,44 +6,56 @@ import java.util.Deque;
 import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
+    // Service class that handles palindrome logic
+    static class PalindromeChecker {
+
+        // Method to check palindrome
+        public boolean checkPalindrome(String input) {
+
+            if (input == null) {
+                return false;
+            }
+
+            int start = 0;
+            int end = input.length() - 1;
+
+            while (start < end) {
+                if (input.charAt(start) != input.charAt(end)) {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+
+            return true;
+        }
+    }
+
+    // Application class
        public static void main(String[] args){
-           public static void main(String[] args) {
 
-               System.out.println("UC10: Case-Insensitive & Space-Ignored Palindrome");
+           System.out.println("UC11: Object-Oriented Palindrome Service");
 
-               Scanner scanner = new Scanner(System.in);
+           Scanner scanner = new Scanner(System.in);
 
-               System.out.print("Enter a string: ");
-               String input = scanner.nextLine();
+           System.out.print("Enter a string: ");
+           String input = scanner.nextLine();
 
-               // Normalize string:
-               // Remove all non-alphanumeric characters and convert to lowercase
-               String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+           // Create object of PalindromeChecker
+           PalindromeChecker checker = new PalindromeChecker();
 
-               int start = 0;
-               int end = normalized.length() - 1;
-               boolean isPalindrome = true;
+           boolean result = checker.checkPalindrome(input);
 
-               while (start < end) {
-
-                   if (normalized.charAt(start) != normalized.charAt(end)) {
-                       isPalindrome = false;
-                       break;
-                   }
-
-                   start++;
-                   end--;
-               }
-
-               if (isPalindrome) {
-                   System.out.println(input + " is a Palindrome (ignoring case and spaces).");
-               } else {
-                   System.out.println(input + " is NOT a Palindrome.");
-               }
-
-               System.out.println("Program ended.");
-               scanner.close();
+           if (result) {
+               System.out.println(input + " is a Palindrome.");
+           } else {
+               System.out.println(input + " is NOT a Palindrome.");
            }
+
+           System.out.println("Program ended.");
+           scanner.close();
+
+
 
     }
 }
